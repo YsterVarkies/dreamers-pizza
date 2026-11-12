@@ -177,7 +177,7 @@ export default function WhatsNew() {
       {item && createPortal(
         <div className="wn-detail" ref={detail} role="dialog" aria-modal="true" aria-label={item.title.join(' ')} style={{ '--glow': item.glow }}>
           <div className="wn-detail__backdrop" onClick={() => close()} />
-          <div className="wn-detail__inner">
+          <div className="wn-detail__inner" data-lenis-prevent>
             <div className="wn-detail__copy">
               <span className="niche__tag">{item.tag}</span>
               <h3 className="wn-detail__title display">

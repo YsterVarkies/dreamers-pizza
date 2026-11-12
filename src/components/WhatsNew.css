@@ -266,20 +266,36 @@
     flex: 0 0 min(72vw, 340px);
     scroll-snap-align: center;
   }
+  .wn-detail {
+    height: 100lvh;
+  }
   .wn-detail__inner {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto 1fr;
-    align-content: start;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 22px;
+    height: 100%;
     overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-y;
     pointer-events: auto;
+    /* extra room at the bottom so the buttons clear the browser's bottom bar */
+    padding-bottom: calc(140px + env(safe-area-inset-bottom));
+  }
+  .wn-detail__copy {
+    flex: none;
   }
   .wn-detail__stage {
     order: -1;
     height: auto;
     max-height: none;
   }
+  .wn-detail__stage {
+    flex: none;
+  }
   .wn-detail__img {
-    max-height: 46svh;
+    max-height: 40svh;
   }
   .wn-detail__title {
     font-size: clamp(46px, 13vw, 72px);
