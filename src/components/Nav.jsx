@@ -31,7 +31,9 @@ export default function Nav() {
 
   useEffect(() => {
     const onScroll = () => {
-      const next = window.scrollY > 32;
+      // transparent while the hero is on screen; blur kicks in once the next section reaches the bar
+      const lineup = document.getElementById('lineup');
+      const next = lineup ? lineup.getBoundingClientRect().top <= 70 : window.scrollY > 32;
       setScrolled((current) => (current === next ? current : next));
     };
     onScroll();
