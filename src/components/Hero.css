@@ -1,6 +1,7 @@
 .hero {
   position: relative;
   z-index: 1;
+  background: var(--sky-5);
 }
 
 .hero__stage {
@@ -264,8 +265,8 @@
 /* ------------------------------ mobile ------------------------------ */
 @media (max-width: 759px) {
   .hero__stage {
-    height: calc(100svh + env(safe-area-inset-bottom, 0px));
-    height: calc(100dvh + env(safe-area-inset-bottom, 0px));
+    height: 100svh;
+    height: 100dvh;
     min-height: min(560px, 100svh);
     --pz: min(40svh, 84vw);
     --pz-y: 47.5%;
