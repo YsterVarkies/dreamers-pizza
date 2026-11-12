@@ -163,7 +163,9 @@ export class HeroScene {
 
     const baseTilt = 1.12 + Math.sin(t * 0.7) * 0.03;
     const faceOn = Math.PI / 2;
-    let rotX = baseTilt + flip * Math.PI * 2;
+    // after the full flip finishes, 2π is the same pose as 0 — drop it so the later blends
+    // toward the face-on angle take the short way round (otherwise the pizza goes upside down)
+    let rotX = baseTilt + (flip < 1 ? flip * Math.PI * 2 : 0);
     rotX = lerp(rotX, faceOn - 0.12, lift * 0.85);
     rotX = lerp(rotX, faceOn, dive);
     root.rotation.x = rotX + ptr.sy * 0.12 * (1 - dive);
