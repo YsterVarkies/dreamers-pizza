@@ -264,11 +264,20 @@
 /* ------------------------------ mobile ------------------------------ */
 @media (max-width: 759px) {
   .hero__stage {
-    height: 100svh;
-    height: 100dvh;
-    min-height: min(560px, 100svh);
-    --pz: min(40svh, 84vw);
+    /* Fixed to the LARGEST viewport (address bar hidden) so it never resizes while the
+       browser bar collapses mid-scroll — that resize was exposing the blue page behind it. */
+    --bar: 0px;
+    height: 100vh;
+    height: 100lvh;
+    min-height: min(560px, 100lvh);
+    --pz: min(40lvh, 84vw);
     --pz-y: 47.5%;
+  }
+  .hero__stage {
+    --bar: max(0px, calc(100lvh - 100svh));
+  }
+  .hero__intro {
+    bottom: calc(clamp(22px, 4svh, 44px) + var(--bar));
   }
   .hero__title {
     top: calc(var(--nav-h) + 0.5svh);
@@ -333,7 +342,7 @@
   }
   .hero__title2,
   .hero__title3 {
-    bottom: clamp(30px, 9svh, 90px);
+    bottom: calc(clamp(30px, 9svh, 90px) + var(--bar));
     font-size: 15vw;
   }
 }

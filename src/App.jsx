@@ -26,15 +26,20 @@ export default function App() {
       window.clearTimeout(viewportRefreshTimer);
       viewportRefreshTimer = window.setTimeout(refresh, 120);
     };
-    const visualViewport = window.visualViewport;
-    window.addEventListener('resize', refreshAfterViewportChange);
-    visualViewport?.addEventListener('resize', refreshAfterViewportChange);
+    // only re-measure on width changes (rotation/desktop resize), never for the mobile
+    // address bar showing/hiding, which only changes the height
+    let lastW = window.innerWidth;
+    const onResize = () => {
+      if (window.innerWidth === lastW) return;
+      lastW = window.innerWidth;
+      refreshAfterViewportChange();
+    };
+    window.addEventListener('resize', onResize);
     document.fonts?.ready.then(refresh);
     window.addEventListener('load', refresh);
     return () => {
       window.clearTimeout(viewportRefreshTimer);
-      window.removeEventListener('resize', refreshAfterViewportChange);
-      visualViewport?.removeEventListener('resize', refreshAfterViewportChange);
+      window.removeEventListener('resize', onResize);
       window.removeEventListener('load', refresh);
     };
   }, []);
