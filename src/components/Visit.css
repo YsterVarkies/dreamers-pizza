@@ -1,0 +1,307 @@
+/* Golden hour — the day winds down toward closing time */
+.visit {
+  --th: min(500px, 84vw);
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  padding-bottom: clamp(60px, 7vw, 100px);
+  background: linear-gradient(180deg, #f3d9b8 0%, #ffbf86 22%, #ff9a6a 48%, #e2717a 74%, #8a5a9e 100%);
+}
+
+.visit__sun {
+  position: absolute;
+  left: 50%;
+  top: 30%;
+  width: 70vw;
+  aspect-ratio: 1;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(255, 236, 190, 0.85), rgba(255, 200, 140, 0.25) 55%, transparent 72%);
+  pointer-events: none;
+}
+.visit__cloud--a {
+  --w: 560px;
+  --o: 0.45;
+  left: -180px;
+  top: 20%;
+}
+.visit__cloud--b {
+  --w: 700px;
+  --o: 0.35;
+  right: -260px;
+  top: 62%;
+}
+
+.visit__grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: clamp(40px, 6vw, 100px);
+  align-items: center;
+}
+
+.visit__left {
+  display: grid;
+  gap: 20px;
+  justify-items: start;
+}
+.visit__title {
+  font-size: clamp(64px, 8vw, 132px);
+  line-height: 0.84;
+}
+.visit__title span {
+  color: #3a1440;
+}
+
+.visit__status {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 16px 26px 16px 16px;
+  border-radius: 26px;
+  background: rgba(40, 14, 40, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+}
+.visit__clock {
+  flex: none;
+  margin: -6px 0;
+}
+.visit__state {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-stretch: 75%;
+  font-size: clamp(34px, 3.4vw, 50px);
+  line-height: 1;
+}
+.visit__detail {
+  font-weight: 700;
+  font-size: 16px;
+  margin-top: 6px;
+}
+.visit__tz {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.7;
+  margin-top: 4px;
+}
+
+.visit__table {
+  width: 100%;
+  max-width: 560px;
+  display: grid;
+  gap: 8px;
+}
+.visit__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 20px;
+  border-radius: 16px;
+  background: rgba(70, 20, 50, 0.24);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  font-weight: 700;
+}
+.visit__row.is-today {
+  background: var(--ink);
+  border-color: transparent;
+}
+.visit__days {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.visit__days em {
+  font-style: normal;
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: var(--cheese);
+  color: var(--ink);
+}
+.visit__time {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-stretch: 75%;
+  font-size: 26px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.visit__days-short {
+  display: none;
+}
+.visit__address {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+}
+.visit__address svg {
+  width: 18px;
+  height: 18px;
+}
+
+.visit__right .tilted-card {
+  cursor: zoom-in;
+}
+
+/* alarm rings when the shop is open */
+.alarm--ring .alarm__bells {
+  transform-origin: 100px 60px;
+  animation: ring 2.6s ease-in-out infinite;
+}
+@keyframes ring {
+  0%, 70%, 100% { transform: rotate(0); }
+  74% { transform: rotate(-7deg); }
+  78% { transform: rotate(7deg); }
+  82% { transform: rotate(-5deg); }
+  86% { transform: rotate(5deg); }
+  90% { transform: rotate(0); }
+}
+
+/* ------------------------------ order cards ------------------------------ */
+.visit__orders {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: clamp(60px, 8vw, 110px);
+}
+.visit__orders > li {
+  min-width: 0;
+}
+.magnet-fill {
+  height: 100%;
+}
+.order-card {
+  position: relative;
+  display: grid;
+  gap: 4px;
+  height: 100%;
+  min-height: 190px;
+  align-content: end;
+  padding: 24px;
+  border-radius: 26px;
+  overflow: hidden;
+  transition: box-shadow 0.5s var(--ease-out);
+  box-shadow: 0 30px 60px -34px rgba(40, 10, 40, 0.7);
+}
+.order-card:hover {
+  box-shadow: 0 40px 70px -30px rgba(40, 10, 40, 0.85);
+}
+.order-card--call {
+  background: var(--ink);
+  color: var(--white);
+}
+.order-card--uber {
+  background: #06c167;
+  color: #04120a;
+}
+.order-card--mail {
+  background: var(--white);
+  color: var(--ink);
+}
+.order-card__icon {
+  position: absolute;
+  top: 22px;
+  left: 22px;
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.14);
+}
+.order-card--mail .order-card__icon,
+.order-card--uber .order-card__icon {
+  background: rgba(0, 0, 0, 0.08);
+}
+.order-card__icon svg {
+  width: 22px;
+  height: 22px;
+}
+.order-card__label {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.75;
+}
+.order-card__value {
+  font-size: clamp(34px, 3vw, 46px);
+  line-height: 1;
+}
+.order-card__value--sm {
+  font-weight: 800;
+  font-size: clamp(16px, 1.3vw, 19px);
+  word-break: break-all;
+}
+.order-card__arrow {
+  position: absolute;
+  top: 30px;
+  right: 26px;
+  width: 22px;
+  height: 22px;
+  transition: transform 0.4s var(--ease-out);
+}
+.order-card:hover .order-card__arrow {
+  transform: translateX(6px) rotate(-30deg);
+}
+
+.visit__note {
+  margin-top: 22px;
+  font-weight: 700;
+  text-align: center;
+  opacity: 0.92;
+}
+
+@media (max-width: 959px) {
+  .visit__grid {
+    grid-template-columns: 1fr;
+  }
+  .visit__right {
+    justify-self: center;
+  }
+  .visit__orders {
+    grid-template-columns: 1fr;
+  }
+  .order-card {
+    min-height: 150px;
+  }
+}
+
+@media (max-width: 759px) {
+  .visit__status {
+    padding: 12px 18px 12px 10px;
+    gap: 12px;
+    width: 100%;
+  }
+  .visit__clock svg {
+    width: 104px;
+    height: auto;
+  }
+  .visit__row {
+    padding: 14px 16px;
+  }
+  .visit__time {
+    font-size: 22px;
+  }
+  .visit__days-long {
+    display: none;
+  }
+  .visit__days-short {
+    display: inline;
+  }
+}
