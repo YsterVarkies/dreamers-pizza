@@ -21,9 +21,20 @@ export default function App() {
   useEffect(() => {
     initSmoothScroll();
     const refresh = () => ScrollTrigger.refresh();
+    let viewportRefreshTimer;
+    const refreshAfterViewportChange = () => {
+      window.clearTimeout(viewportRefreshTimer);
+      viewportRefreshTimer = window.setTimeout(refresh, 120);
+    };
+    const visualViewport = window.visualViewport;
+    visualViewport?.addEventListener('resize', refreshAfterViewportChange);
     document.fonts?.ready.then(refresh);
     window.addEventListener('load', refresh);
-    return () => window.removeEventListener('load', refresh);
+    return () => {
+      window.clearTimeout(viewportRefreshTimer);
+      visualViewport?.removeEventListener('resize', refreshAfterViewportChange);
+      window.removeEventListener('load', refresh);
+    };
   }, []);
 
   useEffect(() => {

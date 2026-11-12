@@ -24,9 +24,20 @@ const MOBILE_LINKS = [
 export default function Nav() {
   const [open, setOpen] = useState(false);
   const [light, setLight] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState('');
   const overlay = useRef(null);
   const status = openStatus();
+
+  useEffect(() => {
+    const onScroll = () => {
+      const next = window.scrollY > 32;
+      setScrolled((current) => (current === next ? current : next));
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   // light sections swap the logo to the full-colour version
   useLayoutEffect(() => {
@@ -101,7 +112,7 @@ export default function Nav() {
 
   return (
     <>
-      <header className={`nav ${light ? 'nav--light' : ''}`}>
+      <header className={`nav ${light ? 'nav--light' : ''} ${scrolled ? 'nav--scrolled' : ''}`}>
         <a className="nav__logo" href="#top" onClick={(e) => go(e, 'top')} aria-label="Dreamers Pizza — back to top">
           <img src={asset("/brand/logo-lockup-light-sm.webp")} alt="" className="nav__logo-img nav__logo-img--light" width="360" height="244" />
           <img src={asset("/brand/logo-lockup-color-sm.webp")} alt="" className="nav__logo-img nav__logo-img--color" width="360" height="244" />
