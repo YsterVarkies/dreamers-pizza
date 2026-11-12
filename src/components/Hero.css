@@ -264,6 +264,9 @@
 /* ------------------------------ mobile ------------------------------ */
 @media (max-width: 759px) {
   .hero__stage {
+    height: 100svh;
+    height: 100dvh;
+    min-height: min(560px, 100svh);
     --pz: min(40svh, 84vw);
     --pz-y: 47.5%;
   }
@@ -290,6 +293,10 @@
     min-width: 0;
     padding: 0 12px;
     font-size: 14px;
+  }
+  .hero__ctas .btn--glass {
+    --h: 56px;
+    padding-inline: 18px;
   }
   .hero__promo,
   .hero__scrollhint {
