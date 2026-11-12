@@ -1,0 +1,57 @@
+name: Deploy GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out main
+        uses: actions/checkout@v7
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build the site
+        run: npm run build
+        env:
+          BASE_PATH: /dreamers-pizza/
+
+      - name: Prepare the Pages files
+        run: touch dist/.nojekyll
+
+      - name: Check out the published branch
+        uses: actions/checkout@v7
+        with:
+          ref: gh-pages
+          path: deploy
+
+      - name: Publish the build to gh-pages
+        run: |
+          rsync -a --delete --exclude='.git/' dist/ deploy/
+          git -C deploy config user.name "github-actions[bot]"
+          git -C deploy config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git -C deploy add --all
+          if git -C deploy diff --cached --quiet; then
+            echo "No site changes to publish."
+          else
+            git -C deploy commit -m "Deploy ${GITHUB_SHA}"
+            git -C deploy push origin gh-pages
+          fi
