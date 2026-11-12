@@ -411,7 +411,7 @@ class ToppingSet {
     this.group.visible = visible;
     if (!visible) return;
 
-    const sig = `${this.presence.toFixed(4)}|${this.lift.toFixed(4)}|${explode.toFixed(4)}`;
+    const sig = `${this.presence.toFixed(4)}|${this.lift.toFixed(4)}|${explode.toFixed(4)}|${this.drizzleDraw.toFixed(4)}`;
     const animating = this.lift > 0.001;
     if (sig === this._last && !animating) return;
     this._last = sig;
