@@ -27,11 +27,13 @@ export default function App() {
       viewportRefreshTimer = window.setTimeout(refresh, 120);
     };
     const visualViewport = window.visualViewport;
+    window.addEventListener('resize', refreshAfterViewportChange);
     visualViewport?.addEventListener('resize', refreshAfterViewportChange);
     document.fonts?.ready.then(refresh);
     window.addEventListener('load', refresh);
     return () => {
       window.clearTimeout(viewportRefreshTimer);
+      window.removeEventListener('resize', refreshAfterViewportChange);
       visualViewport?.removeEventListener('resize', refreshAfterViewportChange);
       window.removeEventListener('load', refresh);
     };

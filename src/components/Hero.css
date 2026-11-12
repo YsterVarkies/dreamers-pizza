@@ -1,7 +1,6 @@
 .hero {
   position: relative;
   z-index: 1;
-  background: var(--sky-5);
 }
 
 .hero__stage {
