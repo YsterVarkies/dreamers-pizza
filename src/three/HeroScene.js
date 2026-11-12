@@ -165,8 +165,12 @@ export class HeroScene {
     const faceOn = Math.PI / 2;
     // after the full flip finishes, 2π is the same pose as 0 — drop it so the later blends
     // toward the face-on angle take the short way round (otherwise the pizza goes upside down)
+    // 1st flip on the way down; 2nd flip as the slices open up. Each full turn is dropped once
+    // finished (2π == 0) so later blends take the short way round and never end upside down.
+    const flipB = easeInOutCubic(smoothstep(0.28, 0.44, p));
+    const liftTilt = 0.82; // exploded view lies fairly flat (not face-on) so the slices read as a pizza
     let rotX = baseTilt + (flip < 1 ? flip * Math.PI * 2 : 0);
-    rotX = lerp(rotX, faceOn - 0.12, lift * 0.85);
+    rotX = lerp(rotX, liftTilt, lift) + (flipB < 1 ? flipB * Math.PI * 2 : 0);
     rotX = lerp(rotX, faceOn, dive);
     root.rotation.x = rotX + ptr.sy * 0.12 * (1 - dive);
     root.rotation.z = -ptr.sx * 0.12 * (1 - dive) + Math.sin(t * 0.5) * 0.02;
