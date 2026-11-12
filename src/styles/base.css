@@ -66,7 +66,7 @@ html.is-locked body {
 
 body {
   margin: 0;
-  background: var(--sky-2);
+  background: var(--sky-5);
   color: var(--white);
   font-family: var(--font-body);
   font-size: 16px;
